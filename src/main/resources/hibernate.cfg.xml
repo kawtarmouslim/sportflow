@@ -1,26 +1,25 @@
-<?xml version='1.0' encoding='utf-8'?>
+<!-- <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE hibernate-configuration PUBLIC
-        "-//Hibernate/Hibernate Configuration DTD//EN"
-        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+      "-//Hibernate/Hibernate Configuration DTD//EN"
+      "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
+  <session-factory>
 
-        <property name="hibernate.connection.driver_class" >com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sportflow</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password"></property>
+      <property name="hibernate.connection.driver_class" >com.mysql.cj.jdbc.Driver</property>
+      <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sportflow</property>
+      <property name="hibernate.connection.username">root</property>
+      <property name="hibernate.connection.password"></property>
 
-        <!-- SQL dialect -->
+
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
-        <!-- Echo all executed SQL to stdout -->
+
         <property name="hibernate.show_sql">true</property>
 
-        <!-- Automatically create/update database tables -->
-        <!-- DB schema will be updated if needed -->
+        <
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <!-- Annotated entity classes -->
+      Annotated entity classes
         <mapping class="model.User"/>
         <mapping class="model.Entraineur"/>
         <mapping class="model.Membre"/>
@@ -30,3 +29,4 @@
 
     </session-factory>
 </hibernate-configuration>
+ -->
