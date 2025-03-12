@@ -18,7 +18,9 @@ public class MembreDao  {
 
             String membre = "CREATE TABLE IF NOT EXISTS membre (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY, " +
-                    "sportPratique VARCHAR(20)" +  // Retirer la virgule ici
+                    "user_id INT UNIQUE, " +
+                    "sportPratique VARCHAR(50), " +
+                    "FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE" +
                     ");";
 
             statement.executeUpdate(membre);

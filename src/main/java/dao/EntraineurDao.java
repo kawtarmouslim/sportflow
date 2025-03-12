@@ -20,9 +20,10 @@ public class EntraineurDao {
             Statement statement = connection.createStatement();
             String entraineur = "CREATE TABLE IF NOT EXISTS entraineur (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY, " +
-                    "specialite VARCHAR(20) " +
+                    "user_id INT UNIQUE, " +
+                    "specialite VARCHAR(50), " +
+                    "FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE" +
                     ");";
-
             statement.executeUpdate(entraineur);
             System.out.println("Table 'condidat' created successfully (if it did not exist already).");
 
