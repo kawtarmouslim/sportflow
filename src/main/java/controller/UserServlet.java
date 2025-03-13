@@ -60,7 +60,7 @@ public class UserServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("addUser.jsp");
         dispatcher.forward(request, response);
     }
-
+//adduser
     private void addUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String last_name = request.getParameter("nom");
         String first_name = request.getParameter("prenom");
