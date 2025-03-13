@@ -1,7 +1,6 @@
 package controller;
 
-import dao.EntraineurDao;
-import dao.MembreDao;
+
 import dao.UserDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -9,8 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Entraineur;
-import model.Membre;
+
 import model.User;
 
 import java.io.IOException;
@@ -23,9 +21,9 @@ public class UserServlet extends HttpServlet {
     public void init() {
         try {
             System.out.println("Début de l'initialisation de UserServlet...");
-            userDAO = new UserDao();  // <-- Ça pourrait planter ici
+            userDAO = new UserDao();
             System.out.println("UserDao initialisé.");
-            userDAO.createUserTable(); // <-- Ou ici
+            userDAO.createUserTable();
             System.out.println("Table utilisateur créée avec succès !");
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,18 +69,7 @@ public class UserServlet extends HttpServlet {
         String role = request.getParameter("role");
         String sport = request.getParameter("sportPratique");
         String speciality = request.getParameter("specialite");
-
-        User newUser = new User();
-        newUser.setNom(last_name);
-        newUser.setPrenom(first_name);
-        newUser.setDateNaissance(birth_date);
-        newUser.setEmail(email);
-        newUser.setPassword(password);
-        newUser.setTel(Telephone);
-        newUser.setRole(role);
-        newUser.setSportPratique(sport);
-        newUser.setSpecialite(speciality);
-
+        User newUser = new User(last_name,first_name,birth_date,email,password,Telephone,role,sport,speciality);
         userDAO.addUser(newUser);
 
         response.sendRedirect("/user?action=new");

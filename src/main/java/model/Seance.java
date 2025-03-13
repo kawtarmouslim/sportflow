@@ -6,32 +6,15 @@ import java.sql.Timestamp;
 
 public class Seance {
     private int idSeance;
-    private Date date;
-    private Time horaire;
+   private String dateTime;
     private int idMembre;
     private int idEntraineur;
 
-    public Seance(int idSeance, Date date, Time horaire, int idMembre, int idEntraineur) {
-        this.idSeance = idSeance;
-        this.date = date;
-        this.horaire = horaire;
+
+    public Seance(String dateTime, int idMembre, int idEntraineur) {
+        this.dateTime = dateTime;
         this.idMembre = idMembre;
         this.idEntraineur = idEntraineur;
-    }
-
-    public Seance(Date date, Time horaire, int idMembre, int idEntraineur) {
-        this.date = date;
-        this.horaire = horaire;
-        this.idMembre = idMembre;
-        this.idEntraineur = idEntraineur;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public int getIdSeance() {
@@ -42,12 +25,12 @@ public class Seance {
         this.idSeance = idSeance;
     }
 
-    public Time getHoraire() {
-        return horaire;
+    public String getDateTime() {
+        return dateTime;
     }
 
-    public void setHoraire(Time horaire) {
-        this.horaire = horaire;
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
 
     public int getIdMembre() {
@@ -65,5 +48,4 @@ public class Seance {
     public void setIdEntraineur(int idEntraineur) {
         this.idEntraineur = idEntraineur;
     }
-
 }

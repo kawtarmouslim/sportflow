@@ -1,11 +1,9 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import model.Seance;
 
-import static java.sql.DriverManager.getConnection;
+import java.sql.*;
+
 
 public class SeanceDao {
     Connection connection;
@@ -18,27 +16,38 @@ public class SeanceDao {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url, username, password);
             Statement statement = connection.createStatement();
-            String seance = "CREATE TABLE IF NOT EXISTS seance (" +
-                    "idSeance INT AUTO_INCREMENT PRIMARY KEY, " +
-                    "dateHeure DATETIME NOT NULL, " +
-                    "idMembre int NOT NULL, " +
-                    "idEntraineur int ," +
-                    "FOREIGN KEY (idMembre) REFERENCES Membre(idMembre), " +
-                    "FOREIGN KEY (idEntraineur) REFERENCES Entraineur(idEntraineur)" +
+            String createSeanceTable = "CREATE TABLE IF NOT EXISTS seance (" +
+                    "idSeance INT AUTO_INCREMENT PRIMARY KEY,"+
+           " dateHeure DATETIME NOT NULL,"+
+           "member_id INT," +
+            "entraineur_id INT,"+
+            "FOREIGN KEY (member_id) REFERENCES member(member_id),"+
+                    "FOREIGN KEY (entraineur_id) REFERENCES entraineur(entraineur_id)"+
+                    ")";
 
-                    ");";
 
-            statement.executeUpdate(seance);
+            statement.executeUpdate(createSeanceTable);
             System.out.println("Table 'condidat' created successfully (if it did not exist already).");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public static void main(String[] args) {
-        SeanceDao seanceDao = new SeanceDao();
-        System.out.println("cree table Seance");
+    public void addSeance(Seance seance) {
+        String sql = "INSERT INTO seance (dateHeure, member_id, entraineur_id) VALUES (?, ?, ?)";
+        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+          preparedStatement.setString(1,seance.getDateTime());
+            preparedStatement.setInt(3,seance.getIdMembre());
+          preparedStatement.setInt(2,seance.getIdEntraineur());
+
+          preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
+
 
 
 }
