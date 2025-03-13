@@ -1,5 +1,5 @@
-
-<
+<%@ page import="model.User" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -174,40 +174,55 @@
 
 <!-- Main Content -->
 <div class="content">
-    <h3>Liste des Cours</h3>
+    <h3>Liste des utilisateur</h3>
     <hr>
     <div class="d-flex justify-content-start">
-        <a href="" class="btn btn-primary">Ajouter un Cours</a>
+        <a href="<%= request.getContextPath() %>/user?action=new" class="btn btn-primary">Ajouter un utilisateur</a>
     </div>
     <br>
     <table class="table table-bordered">
         <thead>
         <tr>
             <th>ID</th>
-            <th>Nom du Cours</th>
-            <th>Description</th>
+            <th>Nom </th>
+            <th>Prenom</th>
+            <th>DateNaissance</th>
+            <th>email</th>
+            <th>password</th>
+            <th>Tel</th>
+            <th>role</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-
+        <%
+            List<User> users = (List<User>) request.getAttribute("users");
+            if (users != null) {
+                for (User user : users) {
+        %>
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td><%= user.getUser_id() %></td>
+            <td><%= user.getNom() %></td>
+            <td><%= user.getPrenom() %></td>
+            <td><%= user.getDateNaissance() %></td>
+            <td><%= user.getEmail() %></td>
+            <td><%= user.getPassword() %></td>
+            <td><%= user.getTel() %></td>
+            <td><%= user.getRole() %></td>
+
             <td>
-                <a href="" class="btn btn-warning btn-sm">Modifier</a>
-                <a href="" class="btn btn-danger btn-sm">Supprimer</a>
+                <a href="<%= request.getContextPath() %>/etudiant/edit?idEtudiant=<%= user.getUser_id() %>" class="btn btn-warning btn-sm">Modifier</a>
+                <a href="<%= request.getContextPath() %>/etudiant/delete?idEtudiant=<%= user.getUser_id() %>" class="btn btn-danger btn-sm">Supprimer</a>
             </td>
         </tr>
-
+        <%
+                }
             }
-
+        %>
         </tbody>
     </table>
 </div>
 
-<!-- Footer -->
 <footer>
     <p>&copy; 2025 SportFlow. Tous droits réservés.</p>
 </footer>
@@ -216,4 +231,3 @@
 
 </body>
 </html>
-

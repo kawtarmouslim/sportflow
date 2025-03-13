@@ -163,10 +163,10 @@
         <h1>SportFlow</h1>
         <nav>
             <ul>
-                <li><a href="#">Accueil</a></li>
-                <li><a href="#">Séances</a></li>
-                <li><a href="#">Utilisateurs</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="<%=request.getContextPath()%>/">Accueil</a></li>
+                <li><a href= onclick="window.location.href='<%= request.getContextPath() %>/seance?action=listseance'">Séances</a></li>
+                <li><a href= onclick="window.location.href='<%= request.getContextPath() %>/user?action=listuser'">Utilisateurs</a></li>
+                <li><a href="#">Déconnexion</a></li>
             </ul>
         </nav>
     </div>
@@ -181,11 +181,11 @@
 </section>
 
 <section class="features">
-    <div class="feature-card">
+    <div class="feature-card" onclick="window.location.href='<%= request.getContextPath() %>/seance?action=listseance'">
         <h3>Gestion des Séances</h3>
         <p>Créez, planifiez et suivez vos séances d'entraînement facilement.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card" onclick="window.location.href='<%= request.getContextPath() %>/user?action=listuser'">
         <h3>Gestion des Utilisateurs</h3>
         <p>Ajoutez et gérez les membres et entraîneurs avec leurs spécialités.</p>
     </div>

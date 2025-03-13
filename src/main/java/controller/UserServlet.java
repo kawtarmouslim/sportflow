@@ -12,6 +12,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.User;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet("/user")
 public class UserServlet extends HttpServlet {
@@ -48,6 +50,9 @@ public class UserServlet extends HttpServlet {
                 case "adduser":
                     addUser(request, response);
                     break;
+                    case "listuser":
+                        listuser(request, response);
+                            break;
             }
         } catch (Exception ex) {
             throw new ServletException(ex);
@@ -55,7 +60,14 @@ public class UserServlet extends HttpServlet {
     }
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("addUser.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("adduser.jsp");
+        dispatcher.forward(request, response);
+    }
+    private void listuser(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
+        List<User> users = userDAO.getUsers();
+        request.setAttribute("users", users); // Vérification du nom correct
+        RequestDispatcher dispatcher = request.getRequestDispatcher("listuser.jsp");
         dispatcher.forward(request, response);
     }
 //adduser
@@ -72,7 +84,8 @@ public class UserServlet extends HttpServlet {
         User newUser = new User(last_name,first_name,birth_date,email,password,Telephone,role,sport,speciality);
         userDAO.addUser(newUser);
 
-        response.sendRedirect("/user?action=new");
+        response.sendRedirect(request.getContextPath() + "/user?action=listuser");
+
     }
 
 }

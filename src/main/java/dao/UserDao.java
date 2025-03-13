@@ -3,6 +3,8 @@ package dao;
 import model.User;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDao {
     private String jdbcURL = "jdbc:mysql://localhost:3306/sportflow";
@@ -126,4 +128,31 @@ public class UserDao {
             }
         }
     }
+    public List<User> getUsers() {
+        List<User> users = new ArrayList<>();
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user");
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                // Créer un objet User et remplir ses champs
+                User user = new User();
+                user.setUser_id(resultSet.getInt("user_id"));
+                user.setNom(resultSet.getString("nom"));
+                user.setPrenom(resultSet.getString("prenom"));
+                user.setDateNaissance(resultSet.getString("date")); // Assurez-vous que le format est correct
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+                user.setTel(resultSet.getString("tel"));
+                user.setRole(resultSet.getString("role"));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erreur lors de la récupération des utilisateurs", e);
+        }
+        return users;
+    }
+
 }
