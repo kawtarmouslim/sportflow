@@ -8,7 +8,7 @@
     <title>Ajouter</title>
     <style>
         body {
-
+           background-color: #004c99;
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
