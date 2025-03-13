@@ -106,4 +106,20 @@ public class User {
     public void setSpecialite(String specialite) {
         this.specialite = specialite;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_id=" + user_id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", dateNaissance='" + dateNaissance + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", tel='" + tel + '\'' +
+                ", role='" + role + '\'' +
+                ", sportPratique='" + sportPratique + '\'' +
+                ", specialite='" + specialite + '\'' +
+                '}';
+    }
 }

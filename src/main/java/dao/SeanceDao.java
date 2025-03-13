@@ -1,8 +1,11 @@
 package dao;
 
 import model.Seance;
+import model.User;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SeanceDao {
@@ -33,6 +36,48 @@ public class SeanceDao {
             e.printStackTrace();
         }
     }
+    public List<User> getAllMembres() {
+        List<User> membresList = new ArrayList<>();
+        String sql = "SELECT user_id, nom FROM user WHERE role = 'member'";
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+
+            while (resultSet.next()) {
+                User membre = new User();
+                membre.setUser_id(resultSet.getInt("user_id"));
+                membre.setNom(resultSet.getString("nom"));
+                membresList.add(membre);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return membresList;
+    }
+
+    // Vous pouvez également créer une méthode similaire pour récupérer les entraîneurs.
+    public List<User> getAllEntraineurs() {
+        List<User> entraineursList = new ArrayList<>();
+        String sql = "SELECT user_id, nom FROM user WHERE role = 'entraineur'";
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+
+            while (resultSet.next()) {
+                User entraineur = new User();
+                entraineur.setUser_id(resultSet.getInt("user_id"));
+                entraineur.setNom(resultSet.getString("nom"));
+                entraineursList.add(entraineur);
+                System.out.println(entraineur);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return entraineursList;
+    }
+
     public void addSeance(Seance seance) {
         String sql = "INSERT INTO seance (dateHeure, member_id, entraineur_id) VALUES (?, ?, ?)";
         try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {

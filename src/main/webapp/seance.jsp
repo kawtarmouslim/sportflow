@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="model.User" %>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -30,12 +32,8 @@
 <div class="container">
     <div class="card p-4">
         <h3 class="text-center mb-3">Ajouter une Séance</h3>
-        <% String message = request.getParameter("message");
-            if (message != null) { %>
-        <div class="alert alert-success"><%= message %></div>
-        <% } %>
 
-        <form  action="seance?action=create" method="post">
+        <form action="seance" method="post">
             <input type="hidden" name="action" value="create">
 
             <div class="mb-3">
@@ -45,12 +43,36 @@
 
             <div class="mb-3">
                 <label for="member_id" class="form-label">Membre :</label>
-                <input type="number" id="member_id" name="member_id" class="form-control" placeholder="ID du membre" required>
+                <select id="member_id" name="member_id" class="form-control" required>
+                    <option value="" disabled selected>Choisir un membre</option>
+                    <%
+                        List<User> membresList = (List<User>) request.getAttribute("membresList");
+                        if (membresList != null) {
+                            for (User membre : membresList) {
+                    %>
+                    <option value="<%= membre.getUser_id() %>"><%= membre.getNom() %></option>
+                    <%
+                            }
+                        }
+                    %>
+                </select>
             </div>
 
             <div class="mb-3">
                 <label for="entraineur_id" class="form-label">Entraîneur :</label>
-                <input type="number" id="entraineur_id" name="entraineur_id" class="form-control" placeholder="ID de l'entraîneur" required>
+                <select id="entraineur_id" name="entraineur_id" class="form-control" required>
+                    <option value="" disabled selected>Choisir un entraîneur</option>
+                    <%
+                        List<User> entraineursList = (List<User>) request.getAttribute("entraineursList");
+                        if (entraineursList != null) {
+                            for (User entraineur : entraineursList) {
+                    %>
+                    <option value="<%= entraineur.getUser_id() %>"><%= entraineur.getNom() %></option>
+                    <%
+                            }
+                        }
+                    %>
+                </select>
             </div>
 
             <button type="submit" class="btn btn-primary w-100">Ajouter</button>
