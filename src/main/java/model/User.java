@@ -2,31 +2,37 @@ package model;
 
 public class User {
 
-   private int id;
+   private int user_id;
    private String nom;
    private String prenom;
    private String dateNaissance;
    private String email;
    private String password;
     private String tel;
-   private String roles;
-
+   private String role;
+    private String sportPratique;
+    private  String specialite;
     public User() {
     }
 
-    public User(int id, String email, String password, String role) {
-        this.id = id;
+    public User(String nom, String prenom, String dateNaissance, String email, String password, String tel, String role, String sportPratique, String specialite) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateNaissance = dateNaissance;
         this.email = email;
         this.password = password;
-        this.roles = role;
+        this.tel = tel;
+        this.role = role;
+        this.sportPratique = sportPratique;
+        this.specialite = specialite;
     }
 
-    public int getId() {
-        return id;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getNom() {
@@ -69,19 +75,35 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return roles;
-    }
-
-    public void setRole(String role) {
-        this.roles = role;
-    }
-
     public String getTel() {
         return tel;
     }
 
     public void setTel(String tel) {
         this.tel = tel;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getSportPratique() {
+        return sportPratique;
+    }
+
+    public void setSportPratique(String sportPratique) {
+        this.sportPratique = sportPratique;
+    }
+
+    public String getSpecialite() {
+        return specialite;
+    }
+
+    public void setSpecialite(String specialite) {
+        this.specialite = specialite;
     }
 }

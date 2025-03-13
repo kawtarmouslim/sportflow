@@ -2,7 +2,10 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
+
+import static java.sql.DriverManager.getConnection;
 
 public class SeanceDao {
     Connection connection;
@@ -36,4 +39,6 @@ public class SeanceDao {
         SeanceDao seanceDao = new SeanceDao();
         System.out.println("cree table Seance");
     }
+
+
 }
