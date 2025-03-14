@@ -1,6 +1,8 @@
 <%@ page import="model.User" %>
 <%@ page import="java.util.List" %>
 <%@ page import="model.Seance" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -175,10 +177,10 @@
 
 <!-- Main Content -->
 <div class="content">
-    <h3>Liste des utilisateur</h3>
+    <h3>Liste des seances</h3>
     <hr>
     <div class="d-flex justify-content-start">
-        <a href="<%= request.getContextPath() %>/user?action=newseance" class="btn btn-primary">Ajouter un utilisateur</a>
+        <a href="<%= request.getContextPath() %>/seance?action=newseance" class="btn btn-primary">Ajouter un seance</a>
     </div>
     <br>
     <table class="table table-bordered">
@@ -200,8 +202,8 @@
         <tr>
             <td><%= seance.getIdSeance() %></td>
             <td><%= seance.getDateTime() %></td>
-            <td><%= seance.getIdEntraineur() %></td>
-            <td><%= seance.getIdMembre() %></td>
+            <td><%= seance.getNomMembre() %></td>
+            <td><%= seance.getNomEntraineur() %></td>
 
 
             <td>

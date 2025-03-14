@@ -9,6 +9,8 @@ public class Seance {
    private String dateTime;
     private int idMembre;
     private int idEntraineur;
+    private String nomMembre;      // Nouveau champ
+    private String nomEntraineur;
 
     public Seance() {
     }
@@ -17,6 +19,22 @@ public class Seance {
         this.dateTime = dateTime;
         this.idMembre = idMembre;
         this.idEntraineur = idEntraineur;
+    }
+
+    public String getNomMembre() {
+        return nomMembre;
+    }
+
+    public void setNomMembre(String nomMembre) {
+        this.nomMembre = nomMembre;
+    }
+
+    public String getNomEntraineur() {
+        return nomEntraineur;
+    }
+
+    public void setNomEntraineur(String nomEntraineur) {
+        this.nomEntraineur = nomEntraineur;
     }
 
     public int getIdSeance() {

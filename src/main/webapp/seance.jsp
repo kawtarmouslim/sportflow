@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="model.User" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -33,7 +34,7 @@
     <div class="card p-4">
         <h3 class="text-center mb-3">Ajouter une Séance</h3>
 
-        <form action="seance" method="post">
+        <form action="seance?action=create" method="post">
             <input type="hidden" name="action" value="create">
 
             <div class="mb-3">

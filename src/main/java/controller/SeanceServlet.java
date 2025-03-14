@@ -31,6 +31,14 @@ public class SeanceServlet extends HttpServlet {
     }
 
     @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+       doGet(req, resp);
+
+
+    }
+
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<User> membresList = seanceDao.getAllMembres();
         List<User> entraineursList = seanceDao.getAllEntraineurs();
@@ -39,14 +47,7 @@ public class SeanceServlet extends HttpServlet {
         req.setAttribute("membresList", membresList);
         req.setAttribute("entraineursList", entraineursList);
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("listseance.jsp");
-        dispatcher.forward(req, resp);
 
-    }
-
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
         switch (action){
             case "newseance":
@@ -73,14 +74,15 @@ public class SeanceServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("seance.jsp");
         dispatcher.forward(request, response);
     }
-    private void listseance(HttpServletRequest request, HttpServletResponse response)
+   private void listseance(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
         List<Seance> seances = seanceDao.getAllSeances();
-
-        request.setAttribute("seances", seances); // Vérification du nom correct
+        System.out.println("Liste des séances récupérées : " + seances);
+        request.setAttribute("seances", seances);
         RequestDispatcher dispatcher = request.getRequestDispatcher("listseance.jsp");
         dispatcher.forward(request, response);
     }
+
     private void addSeance(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String date = req.getParameter("date");
         int idEntraineur = Integer.parseInt(req.getParameter("entraineur_id"));

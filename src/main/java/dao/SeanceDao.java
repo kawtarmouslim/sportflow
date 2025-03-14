@@ -20,22 +20,23 @@ public class SeanceDao {
             connection = DriverManager.getConnection(url, username, password);
             Statement statement = connection.createStatement();
             String createSeanceTable = "CREATE TABLE IF NOT EXISTS seance (" +
-                    "idSeance INT AUTO_INCREMENT PRIMARY KEY,"+
-           " dateHeure DATETIME NOT NULL,"+
-           "member_id INT," +
-            "entraineur_id INT,"+
-            "FOREIGN KEY (member_id) REFERENCES member(member_id),"+
-                    "FOREIGN KEY (entraineur_id) REFERENCES entraineur(entraineur_id)"+
+                    "idSeance INT AUTO_INCREMENT PRIMARY KEY," +
+                    " dateHeure DATETIME NOT NULL," +
+                    "member_id INT," +
+                    "entraineur_id INT," +
+                    "FOREIGN KEY (member_id) REFERENCES member(member_id)," +
+                    "FOREIGN KEY (entraineur_id) REFERENCES entraineur(entraineur_id)" +
                     ")";
 
 
             statement.executeUpdate(createSeanceTable);
-            System.out.println("Table 'condidat' created successfully (if it did not exist already).");
+            System.out.println("Table 'seance' created successfully (if it did not exist already).");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     public List<User> getAllMembres() {
         List<User> membresList = new ArrayList<>();
         String sql = "SELECT user_id, nom FROM user WHERE role = 'member'";
@@ -80,12 +81,12 @@ public class SeanceDao {
 
     public void addSeance(Seance seance) {
         String sql = "INSERT INTO seance (dateHeure, member_id, entraineur_id) VALUES (?, ?, ?)";
-        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-          preparedStatement.setString(1,seance.getDateTime());
-            preparedStatement.setInt(3,seance.getIdMembre());
-          preparedStatement.setInt(2,seance.getIdEntraineur());
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, seance.getDateTime());
+            preparedStatement.setInt(3, seance.getIdMembre());
+            preparedStatement.setInt(2, seance.getIdEntraineur());
 
-          preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -99,28 +100,24 @@ public class SeanceDao {
                 + "FROM seance s "
                 + "JOIN user m ON s.member_id = m.user_id "
                 + "JOIN user e ON s.entraineur_id = e.user_id";
-        // Récupérer la connexion à la base de données
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL);
              ResultSet resultSet = preparedStatement.executeQuery()) {
-
-            // Parcours des résultats de la requête
             while (resultSet.next()) {
                 Seance seance = new Seance();
                 seance.setIdSeance(resultSet.getInt("idSeance"));
-                seance.setDateTime(resultSet.getString("dateHeure")); // ou utilisez resultSet.getTimestamp() si dateHeure est un timestamp
-                seance.setIdMembre(resultSet.getInt("member_id"));
-                seance.setIdEntraineur(resultSet.getInt("entraineur_id"));
+                seance.setDateTime(resultSet.getString("dateHeure"));
+                seance.setNomMembre(resultSet.getString("membreNom"));
+                seance.setNomEntraineur(resultSet.getString("entraineurNom"));
                 seanceList.add(seance);
-                System.out.println(seance);
             }
-
+            System.out.println("Séances récupérées : " + seanceList);
         } catch (SQLException e) {
             System.err.println("Erreur SQL : " + e.getMessage());
             e.printStackTrace();
         }
-
         return seanceList;
     }
 
-
 }
+
+
