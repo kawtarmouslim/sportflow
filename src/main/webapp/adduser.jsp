@@ -1,4 +1,10 @@
+<%@ page import="model.User" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+    User user = (User) request.getAttribute("user");
+
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +14,7 @@
     <title>Ajouter</title>
     <style>
         body {
-           background-color: #004c99;
+           background: #004c99;
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -50,7 +56,11 @@
 <main>
     <section>
         <div id="form">
-            <form id="form1" class="form1" action="user?action=adduser" method="post">
+            <form  action="user?action=adduser" method="post">
+                <form id="form1" class="form1" action="user?action=<%= (user != null) ? "edituser" : "adduser" %>" method="post">
+                    <% if (user != null) { %>
+                    <input type="hidden" name="user_id" value="<%= user.getUser_id() %>">
+                    <% } %>
                 <h2>Ajouter un utilisateur</h2>
                 <div class="form-row">
                     <div class="form-group col-md-6">

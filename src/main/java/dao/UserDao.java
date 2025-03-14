@@ -154,5 +154,74 @@ public class UserDao {
         }
         return users;
     }
+    public void deleteUser(int userId) {
+        try (Connection connection = getConnection()) {
+            // 1. Supprimer les séances associées
+            String deleteSeances = "DELETE FROM seance WHERE member_id = ?";
+            try (PreparedStatement stmt1 = connection.prepareStatement(deleteSeances)) {
+                stmt1.setInt(1, userId);
+                stmt1.executeUpdate();
+            }
+            // 2. Supprimer le membre (vérifie si tu dois supprimer dans user ou member, ça dépend de ton modèle)
+            String deleteUser = "DELETE FROM user WHERE user_id = ?";
+            try (PreparedStatement stmt2 = connection.prepareStatement(deleteUser)) {
+                stmt2.setInt(1, userId);
+                stmt2.executeUpdate();
+                System.out.println("Utilisateur supprimé avec succès !");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public User getUser(int userId) {
+        User user = null;
+        String sql = "SELECT * FROM user WHERE user_id = ?";
+        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+                user.setUser_id(resultSet.getInt("user_id"));
+                user.setNom(resultSet.getString("nom"));
+
+                user.setPrenom(resultSet.getString("prenom"));
+                user.setDateNaissance(resultSet.getString("date"));
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+                user.setTel(resultSet.getString("tel"));
+                user.setRole(resultSet.getString("role"));
+
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    public void updateUser(User user) throws SQLException {
+        String sql = "UPDATE etudiant SET nom=?, prenom=?,  dateNaissance=?,email=?,password=?, tel=?,role=?,sportPratique=?,specialite=?,WHERE user_id=?";
+
+        try (Connection connection = getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setString(1, user.getNom());
+            stmt.setString(2, user.getPrenom());
+            stmt.setString(3, user.getDateNaissance());
+            stmt.setString(4, user.getEmail());
+            stmt.setString(5, user.getPassword());
+            stmt.setString(5, user.getTel());
+            stmt.setString(5, user.getRole());
+            stmt.setString(6, user.getSportPratique());
+            stmt.setString(7, user.getSpecialite());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 }

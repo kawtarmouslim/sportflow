@@ -74,7 +74,9 @@ public class SeanceServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("seance.jsp");
         dispatcher.forward(request, response);
     }
-   private void listseance(HttpServletRequest request, HttpServletResponse response)
+
+
+        private void listseance(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
         List<Seance> seances = seanceDao.getAllSeances();
         System.out.println("Liste des séances récupérées : " + seances);

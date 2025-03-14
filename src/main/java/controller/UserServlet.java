@@ -47,22 +47,36 @@ public class UserServlet extends HttpServlet {
                 case "new":
                     showNewForm(request, response);
                     break;
+                    case "showEditForm":
+                        showEditForm(request, response);
                 case "adduser":
                     addUser(request, response);
                     break;
                     case "listuser":
                         listuser(request, response);
                             break;
+                            case "deleteuser":
+                                deleteUser(request, response);
+                                break;
+                                case "edituser":
+                                            editUser(request, response
+                                            );
             }
         } catch (Exception ex) {
             throw new ServletException(ex);
         }
     }
-
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int idUser = Integer.parseInt(request.getParameter("user_id"));
+        userDAO.getUser(idUser);
+    }
     private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("adduser.jsp");
         dispatcher.forward(request, response);
     }
+
+
     private void listuser(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
         List<User> users = userDAO.getUsers();
@@ -85,6 +99,32 @@ public class UserServlet extends HttpServlet {
         userDAO.addUser(newUser);
 
         response.sendRedirect(request.getContextPath() + "/user?action=listuser");
+
+    }
+    private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        userDAO.deleteUser(id);
+        response.sendRedirect(request.getContextPath() + "/user?action=listuser");
+    }
+    private void editUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("userid"));
+        String last_name = request.getParameter("nom");
+        String first_name = request.getParameter("prenom");
+        String birth_date = request.getParameter("date");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String Telephone = request.getParameter("tel");
+        String role = request.getParameter("role");
+        String sport = request.getParameter("sportPratique");
+        String speciality = request.getParameter("specialite");
+        User user=new User(last_name,first_name,birth_date,email,password,Telephone,role,sport,speciality);
+        try {
+            userDAO.updateUser(user);
+            response.sendRedirect(request.getContextPath() + "/user?action=listuser");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 

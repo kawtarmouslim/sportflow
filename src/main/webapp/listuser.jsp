@@ -212,8 +212,8 @@
             <td><%= user.getRole() %></td>
 
             <td>
-                <a href="<%= request.getContextPath() %>/etudiant/edit?idEtudiant=<%= user.getUser_id() %>" class="btn btn-warning btn-sm">Modifier</a>
-                <a href="<%= request.getContextPath() %>/etudiant/delete?idEtudiant=<%= user.getUser_id() %>" class="btn btn-danger btn-sm">Supprimer</a>
+                <a href="<%= request.getContextPath() %>/user?action=edituser&id=<%= user.getUser_id() %>" class="btn btn-warning btn-sm">Modifier</a>
+                <a href="<%= request.getContextPath() %>/user?action=deleteuser&id=<%= user.getUser_id() %>" class="btn btn-danger btn-sm">Supprimer</a>
             </td>
         </tr>
         <%
