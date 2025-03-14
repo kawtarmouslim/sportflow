@@ -69,7 +69,7 @@ public class SeanceDao {
                 entraineur.setUser_id(resultSet.getInt("user_id"));
                 entraineur.setNom(resultSet.getString("nom"));
                 entraineursList.add(entraineur);
-                System.out.println(entraineur);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -93,6 +93,34 @@ public class SeanceDao {
 
     }
 
+    public List<Seance> getAllSeances() {
+        List<Seance> seanceList = new ArrayList<>();
+        String SQL = "SELECT s.idSeance, s.dateHeure, m.nom AS membreNom, e.nom AS entraineurNom "
+                + "FROM seance s "
+                + "JOIN user m ON s.member_id = m.user_id "
+                + "JOIN user e ON s.entraineur_id = e.user_id";
+        // Récupérer la connexion à la base de données
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            // Parcours des résultats de la requête
+            while (resultSet.next()) {
+                Seance seance = new Seance();
+                seance.setIdSeance(resultSet.getInt("idSeance"));
+                seance.setDateTime(resultSet.getString("dateHeure")); // ou utilisez resultSet.getTimestamp() si dateHeure est un timestamp
+                seance.setIdMembre(resultSet.getInt("member_id"));
+                seance.setIdEntraineur(resultSet.getInt("entraineur_id"));
+                seanceList.add(seance);
+                System.out.println(seance);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erreur SQL : " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return seanceList;
+    }
 
 
 }

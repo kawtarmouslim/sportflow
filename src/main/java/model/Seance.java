@@ -10,6 +10,8 @@ public class Seance {
     private int idMembre;
     private int idEntraineur;
 
+    public Seance() {
+    }
 
     public Seance(String dateTime, int idMembre, int idEntraineur) {
         this.dateTime = dateTime;
@@ -47,5 +49,15 @@ public class Seance {
 
     public void setIdEntraineur(int idEntraineur) {
         this.idEntraineur = idEntraineur;
+    }
+
+    @Override
+    public String toString() {
+        return "Seance{" +
+                "idSeance=" + idSeance +
+                ", dateTime='" + dateTime + '\'' +
+                ", idMembre=" + idMembre +
+                ", idEntraineur=" + idEntraineur +
+                '}';
     }
 }

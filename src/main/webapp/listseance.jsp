@@ -1,7 +1,6 @@
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-
+<%@ page import="model.User" %>
+<%@ page import="java.util.List" %>
+<%@ page import="model.Seance" %>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -26,13 +25,13 @@
 
         /* Header */
         header {
-            background: linear-gradient(135deg, #6e7078, #004c99);
+            background: linear-gradient(135deg, #000000, #1c1c1c);
             color: #fff;
             padding: 15px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
         }
 
         .container {
@@ -165,10 +164,10 @@
         <h1>SportFlow</h1>
         <nav>
             <ul>
-                <li><a href="#">Accueil</a></li>
-                <li><a href="#">Séances</a></li>
-                <li><a href="#">Utilisateurs</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="<%=request.getContextPath()%>/">Accueil</a></li>
+                <li><a href="<%=request.getContextPath()%>/list">Séances</a></li>
+                <li><a href="<%=request.getContextPath()%>/users">Utilisateurs</a></li>
+                <li><a href="<%=request.getContextPath()%>/contact">Contact</a></li>
             </ul>
         </nav>
     </div>
@@ -176,40 +175,48 @@
 
 <!-- Main Content -->
 <div class="content">
-    <h3>Liste des Cours</h3>
+    <h3>Liste des utilisateur</h3>
     <hr>
     <div class="d-flex justify-content-start">
-        <a href="" class="btn btn-primary">Ajouter un Cours</a>
+        <a href="<%= request.getContextPath() %>/user?action=newseance" class="btn btn-primary">Ajouter un utilisateur</a>
     </div>
     <br>
     <table class="table table-bordered">
         <thead>
         <tr>
             <th>ID</th>
-            <th>Nom du Cours</th>
-            <th>Description</th>
+            <th>DateTime Seance </th>
+            <th>Nom Membre</th>
+            <th>Nom Entraineur</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-
+        <%
+            List<Seance> seances = (List<Seance>) request.getAttribute("seances");
+            if (seances != null) {
+                for (Seance seance : seances) {
+        %>
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td><%= seance.getIdSeance() %></td>
+            <td><%= seance.getDateTime() %></td>
+            <td><%= seance.getIdEntraineur() %></td>
+            <td><%= seance.getIdMembre() %></td>
+
+
             <td>
-                <a href="" class="btn btn-warning btn-sm">Modifier</a>
-                <a href="" class="btn btn-danger btn-sm">Supprimer</a>
+                <a href="<%= request.getContextPath() %>/etudiant/edit?idEtudiant=<%= seance.getIdSeance() %>" class="btn btn-warning btn-sm">Modifier</a>
+                <a href="<%= request.getContextPath() %>/etudiant/delete?idEtudiant=<%= seance.getIdSeance() %>" class="btn btn-danger btn-sm">Supprimer</a>
             </td>
         </tr>
-
-        }
-
+        <%
+                }
+            }
+        %>
         </tbody>
     </table>
 </div>
 
-<!-- Footer -->
 <footer>
     <p>&copy; 2025 SportFlow. Tous droits réservés.</p>
 </footer>
@@ -218,6 +225,3 @@
 
 </body>
 </html>
-
-
-

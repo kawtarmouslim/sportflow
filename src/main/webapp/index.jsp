@@ -66,7 +66,7 @@
 
         /* Hero Section */
         .hero {
-            background: url('hero-image.jpg') center/cover no-repeat;
+
             height: 60vh;
             display: flex;
             align-items: center;
